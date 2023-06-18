@@ -1,0 +1,171 @@
+import java.util.Scanner;
+
+class CoffeeMachine {
+    private int water;
+    private int milk;
+    private int coffeeBeans;
+    private int money;
+    private int espressoPrice;
+    private int lattePrice;
+    private int cappuccinoPrice;
+    private int espressoWater;
+    private int latteWater;
+    private int cappuccinoWater;
+    private int espressoMilk;
+    private int latteMilk;
+    private int cappuccinoMilk;
+    private int espressoBeans;
+    private int latteBeans;
+    private int cappuccinoBeans;
+    private int espressoCount;
+    private int latteCount;
+    private int cappuccinoCount;
+    private int totalAmountEarned;
+
+    public CoffeeMachine() {
+        water = 0;
+        milk = 0;
+        coffeeBeans = 0;
+        money = 0;
+        espressoPrice = 4;
+        lattePrice = 7;
+        cappuccinoPrice = 6;
+        espressoWater = 250;
+        latteWater = 350;
+        cappuccinoWater = 200;
+        espressoMilk = 0;
+        latteMilk = 75;
+        cappuccinoMilk = 100;
+        espressoBeans = 16;
+        latteBeans = 20;
+        cappuccinoBeans = 12;
+        espressoCount = 0;
+        latteCount = 0;
+        cappuccinoCount = 0;
+        totalAmountEarned = 0;
+    }
+
+    public void buyCoffee(String coffeeType) {
+        if (coffeeType.equalsIgnoreCase("espresso")) {
+            if (water >= espressoWater && coffeeBeans >= espressoBeans) {
+                System.out.println("Dispensing espresso. Enjoy your coffee!");
+                money += espressoPrice;
+                water -= espressoWater;
+                coffeeBeans -= espressoBeans;
+                espressoCount++;
+                totalAmountEarned += espressoPrice;
+            } else {
+                System.out.println("Sorry, not enough ingredients to make espresso.");
+            }
+        } else if (coffeeType.equalsIgnoreCase("latte")) {
+            if (water >= latteWater && milk >= latteMilk && coffeeBeans >= latteBeans) {
+                System.out.println("Dispensing latte. Enjoy your coffee!");
+                money += lattePrice;
+                water -= latteWater;
+                milk -= latteMilk;
+                coffeeBeans -= latteBeans;
+                latteCount++;
+                totalAmountEarned += lattePrice;
+            } else {
+                System.out.println("Sorry, not enough ingredients to make latte.");
+            }
+        } else if (coffeeType.equalsIgnoreCase("cappuccino")) {
+            if (water >= cappuccinoWater && milk >= cappuccinoMilk && coffeeBeans >= cappuccinoBeans) {
+                System.out.println("Dispensing cappuccino. Enjoy your coffee!");
+                money += cappuccinoPrice;
+                water -= cappuccinoWater;
+                milk -= cappuccinoMilk;
+                coffeeBeans -= cappuccinoBeans;
+                cappuccinoCount++;
+                totalAmountEarned += cappuccinoPrice;
+            } else {
+                System.out.println("Sorry, not enough ingredients to make cappuccino.");
+            }
+        } else {
+            System.out.println("Invalid coffee type.");
+        }
+    }
+
+    public void fillIngredients(int addedWater, int addedMilk, int addedCoffeeBeans) {
+        water += addedWater;
+        milk += addedMilk;
+        coffeeBeans += addedCoffeeBeans;
+    }
+
+    public void takeMoney() {
+        System.out.println("Taking $" + money + " from the money box.");
+        money = 0;
+    }
+
+    public void showIngredients() {
+        System.out.println("Ingredients in the coffee machine:");
+        System.out.println("Water: " + water + " ml");
+        System.out.println("Milk: " + milk + " ml");
+        System.out.println("Coffee Beans: " + coffeeBeans + " units");
+        System.out.println("Money in the box: $" + money);
+    }
+
+    public void showAnalytics() {
+        System.out.println("Coffee sold: ");
+        System.out.println("Espresso: " + espressoCount);
+        System.out.println("Latte: " + latteCount);
+        System.out.println("Cappuccino: " + cappuccinoCount);
+        System.out.println("Total amount earned: $" + totalAmountEarned);
+        System.out.println("Ingredients consumed: ");
+        System.out.println("Water: " + (espressoCount * espressoWater + latteCount * latteWater + cappuccinoCount * cappuccinoWater) + " ml");
+        System.out.println("Milk: " + (latteCount * latteMilk + cappuccinoCount * cappuccinoMilk) + " ml");
+        System.out.println("Coffee Beans: " + (espressoCount * espressoBeans + latteCount * latteBeans + cappuccinoCount * cappuccinoBeans) + " units");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        CoffeeMachine coffeeMachine = new CoffeeMachine();
+
+        while (true) {
+            System.out.println("==== Coffee Machine Simulator ====");
+            System.out.println("1. Buy coffee");
+            System.out.println("2. Fill ingredients");
+            System.out.println("3. Take money");
+            System.out.println("4. Show ingredients");
+            System.out.println("5. Analytics");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter coffee type (espresso/latte/cappuccino): ");
+                    String coffeeType = scanner.next();
+                    coffeeMachine.buyCoffee(coffeeType);
+                    break;
+                case 2:
+                    System.out.print("Enter amount of water to add (in ml): ");
+                    int addedWater = scanner.nextInt();
+                    System.out.print("Enter amount of milk to add (in ml): ");
+                    int addedMilk = scanner.nextInt();
+                    System.out.print("Enter amount of coffee beans to add (in units): ");
+                    int addedCoffeeBeans = scanner.nextInt();
+                    coffeeMachine.fillIngredients(addedWater, addedMilk, addedCoffeeBeans);
+                    break;
+                case 3:
+                    coffeeMachine.takeMoney();
+                    break;
+                case 4:
+                    coffeeMachine.showIngredients();
+                    break;
+                case 5:
+                    coffeeMachine.showAnalytics();
+                    break;
+                case 6:
+                    System.out.println("Exiting the simulation.");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+
+            System.out.println();
+        }
+    }
+}
