@@ -1,3 +1,4 @@
+
 # Coffee-Machine-Simulator:
 This is a console application written in Java that simulates a Coffee Machine. The simulator allows users to manage the coffee machine by buying coffee, filling ingredients, taking money, showing remaining ingredients, displaying analytics, and exiting the simulation.
 
@@ -86,3 +87,5 @@ Exiting the simulation.
 The analytics feature can be further enhanced to include additional statistics or generate reports for a specific time period. It can also be integrated with a database to store and retrieve historical data.
 
 Feel free to extend and customize the simulator according to your requirements and use it as a basis for further development.
+
+![Screenshot (73)](https://github.com/Anuvab123/Coffee-Machine-Simulator/assets/112776528/5bf90367-0e86-4858-87bf-69862f2f01ca)
